@@ -25,11 +25,12 @@ export function HabitForm({ categories, onCreate, onAddCategory, onDone }: Habit
   function submit(e: React.FormEvent) {
     e.preventDefault();
     if (!title.trim()) return;
+    const trimmedNotes = notes.trim();
     onCreate({
       title: title.trim(),
-      notes: notes.trim() || undefined,
       category,
       frequency: mode === "daily" ? { type: "daily" } : { type: "weekly", days },
+      ...(trimmedNotes ? { notes: trimmedNotes } : {}),
     });
     onDone();
   }
